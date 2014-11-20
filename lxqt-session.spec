@@ -7,7 +7,7 @@
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
 Version: 0.8.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPLv2+
 URL:     http://lxqt.org/
 Source0: http://lxqt.org/downloads/lxqt/0.8.0/%{name}-%{version}.tar.xz
@@ -17,7 +17,8 @@ Requires: lxqt-common >= 0.8.0
 # Temporary. OpenBox should come through groups
 Requires: openbox
 
-Obsoletes: razorqt-session <= 0.5.2
+## omit for now, until a razorqt -> lxqt transition plan is in place -- Rex
+# Obsoletes: razorqt-session <= 0.5.2
 
 BuildRequires: %{cmake_pkg} >= 2.8.9
 BuildRequires: pkgconfig(Qt5Widgets)
@@ -61,6 +62,9 @@ desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
 %{_datadir}/lxqt-qt5/translations/lxqt-config-session
 
 %changelog
+* Thu Nov 20 2014 Rex Dieter <rdieter@fedoraproject.org> 0.8.0-4
+- omit Obsoletes: razorqt-session (for now)
+
 * Mon Nov 10 2014 Helio Chissini de Castro <hcastro@redhat.com> - 0.8.0-3
 - Update for review issues on https://bugzilla.redhat.com/show_bug.cgi?id=1158999
 
