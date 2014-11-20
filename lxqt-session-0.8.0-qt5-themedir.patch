@@ -1,0 +1,18 @@
+diff -u -r lxqt-session-0.8.0.orig/lxqt-session/src/lxqtmodman.cpp lxqt-session-0.8.0/lxqt-session/src/lxqtmodman.cpp
+--- lxqt-session-0.8.0.orig/lxqt-session/src/lxqtmodman.cpp	2014-10-10 14:28:04.000000000 -0300
++++ lxqt-session-0.8.0/lxqt-session/src/lxqtmodman.cpp	2014-10-28 11:12:03.876222628 -0200
+@@ -106,9 +106,12 @@
+ 
+     foreach(QString path, paths)
+     {
+-        QFileInfo fi(QString("%1/lxqt/themes").arg(path));
++        QFileInfo fi(QString("%1/lxqt-qt5/themes").arg(path));
+         if (fi.exists())
++		{
+             mThemeWatcher->addPath(fi.absoluteFilePath());
++			qDebug() << "Added theme path " << fi.absoluteFilePath();
++		}
+     }
+ 
+     themeChanged();
+Only in lxqt-session-0.8.0.orig: lxqt-session-0.8.0
