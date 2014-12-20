@@ -7,11 +7,11 @@
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
 Version: 0.8.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LGPLv2+
 URL:     http://lxqt.org/
 Source0: http://lxqt.org/downloads/lxqt/0.8.0/%{name}-%{version}.tar.xz
-Patch0:  lxqt-session-0.8.0-qt5-themedir.patch
+Patch0:  lxqt-session-0.8.0-unify.patch
 
 Requires: lxqt-common >= 0.8.0
 # Temporary. OpenBox should come through groups
@@ -26,7 +26,7 @@ BuildRequires: pkgconfig(Qt5DBus)
 BuildRequires: pkgconfig(Qt5X11Extras)
 BuildRequires: pkgconfig(Qt5Help)
 BuildRequires: pkgconfig(Qt5Xdg)
-BuildRequires: pkgconfig(lxqt-qt5)
+BuildRequires: pkgconfig(lxqt)
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(x11)
 BuildRequires: desktop-file-utils
@@ -58,10 +58,13 @@ desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
 %{_bindir}/lxqt-session
 %{_bindir}/lxqt-config-session
 %{_datadir}/applications/lxqt-config-session.desktop
-%{_datadir}/lxqt-qt5/translations/lxqt-session
-%{_datadir}/lxqt-qt5/translations/lxqt-config-session
+%{_datadir}/lxqt/translations/lxqt-session
+%{_datadir}/lxqt/translations/lxqt-config-session
 
 %changelog
+* Sat Dec 20 2014 Helio Chissini de Castro <hcastro@redhat.com> - 0.8.0-5
+- Unify naming as discussed on Fedora IRC
+
 * Thu Nov 20 2014 Rex Dieter <rdieter@fedoraproject.org> 0.8.0-4
 - omit Obsoletes: razorqt-session (for now)
 
