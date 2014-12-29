@@ -7,7 +7,7 @@
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
 Version: 0.8.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LGPLv2+
 URL:     http://lxqt.org/
 Source0: http://lxqt.org/downloads/lxqt/0.8.0/%{name}-%{version}.tar.xz
@@ -62,6 +62,9 @@ desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
 %{_datadir}/lxqt/translations/lxqt-config-session
 
 %changelog
+* Mon Dec 29 2014 Helio Chissini de Castro <hcastro@redhat.com> - 0.8.0-6
+- Rebuild against new Qt 5.4.0
+
 * Sat Dec 20 2014 Helio Chissini de Castro <hcastro@redhat.com> - 0.8.0-5
 - Unify naming as discussed on Fedora IRC
 
