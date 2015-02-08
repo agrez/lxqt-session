@@ -1,17 +1,10 @@
-%if 0%{?rhel} == 6
-%define cmake_pkg cmake28
-%else
-%define cmake_pkg cmake
-%endif
-
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
-Version: 0.8.0
-Release: 6%{?dist}
+Version: 0.9.0
+Release: 1%{?dist}
 License: LGPLv2+
 URL:     http://lxqt.org/
-Source0: http://lxqt.org/downloads/lxqt/0.8.0/%{name}-%{version}.tar.xz
-Patch0:  lxqt-session-0.8.0-unify.patch
+Source0: http://downloads.lxqt.org/lxqt/0.9.0/lxqt-session-0.9.0.tar.xz
 
 Requires: lxqt-common >= 0.8.0
 # Temporary. OpenBox should come through groups
@@ -20,7 +13,7 @@ Requires: openbox
 ## omit for now, until a razorqt -> lxqt transition plan is in place -- Rex
 # Obsoletes: razorqt-session <= 0.5.2
 
-BuildRequires: %{cmake_pkg} >= 2.8.9
+BuildRequires: cmake >= 2.8.9
 BuildRequires: pkgconfig(Qt5Widgets)
 BuildRequires: pkgconfig(Qt5DBus)
 BuildRequires: pkgconfig(Qt5X11Extras)
@@ -29,39 +22,46 @@ BuildRequires: pkgconfig(Qt5Xdg)
 BuildRequires: pkgconfig(lxqt)
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(x11)
+BuildRequires: kf5-kwindowsystem-devel >= 5.5
 BuildRequires: desktop-file-utils
 
 %description
 %{summary}.
 
-
 %prep
 %setup
-%patch0 -p1 -b .themedir
 
 %build
 mkdir -p %{_target_platform}
 pushd %{_target_platform}
-%{?cmake28}%{!?cmake28:%{?cmake}} -DBUNDLE_XDG_UTILS=NO -DUSE_QT5=TRUE ..
+	%{cmake} -DBUNDLE_XDG_UTILS=NO ..
 popd
 
 make %{?_smp_mflags} -C %{_target_platform}
 
 %install
 make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
-desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
-	--remove-only-show-in=LXQt --add-only-show-in=X-LXQt %{buildroot}%{_datadir}/applications/lxqt-config-session.desktop
-
+for name in config-session hibernate lockscreen logout reboot shutdown suspend; do 
+	desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
+		--remove-only-show-in=LXQt --add-only-show-in=X-LXQt %{buildroot}%{_datadir}/applications/lxqt-${name}.desktop
+done
 
 %files
 %doc COPYING
 %{_bindir}/lxqt-session
 %{_bindir}/lxqt-config-session
-%{_datadir}/applications/lxqt-config-session.desktop
+%{_bindir}/lxqt-leave
 %{_datadir}/lxqt/translations/lxqt-session
 %{_datadir}/lxqt/translations/lxqt-config-session
+%{_datadir}/applications/*.desktop
 
 %changelog
+* Sun Feb 08 2015 Helio Chissini de Castro <helio@kde.org> - 0.9.0-1
+- New upstream release 0.9.0
+
+* Tue Feb 03 2015 Helio Chissini de Castro <hcastro@redhat.com> - 0.9.0-0.1
+- Prepare 0.9.0 release
+
 * Mon Dec 29 2014 Helio Chissini de Castro <hcastro@redhat.com> - 0.8.0-6
 - Rebuild against new Qt 5.4.0
 
