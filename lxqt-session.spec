@@ -1,12 +1,12 @@
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
 Version: 0.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPLv2+
 URL:     http://lxqt.org/
 Source0: http://downloads.lxqt.org/lxqt/0.9.0/lxqt-session-0.9.0.tar.xz
 
-Requires: lxqt-common >= 0.8.0
+Requires: lxqt-common >= %{version}
 # Temporary. OpenBox should come through groups
 Requires: openbox
 
@@ -46,16 +46,20 @@ for name in config-session hibernate lockscreen logout reboot shutdown suspend; 
 		--remove-only-show-in=LXQt --add-only-show-in=X-LXQt %{buildroot}%{_datadir}/applications/lxqt-${name}.desktop
 done
 
-%files
+%find_lang %{name} --with-qt
+%find_lang lxqt-config-session --with-qt
+
+%files -f %{name}.lang -f lxqt-config-session.lang
 %doc COPYING
 %{_bindir}/lxqt-session
 %{_bindir}/lxqt-config-session
 %{_bindir}/lxqt-leave
-%{_datadir}/lxqt/translations/lxqt-session
-%{_datadir}/lxqt/translations/lxqt-config-session
 %{_datadir}/applications/*.desktop
 
 %changelog
+* Mon Feb 09 2015 Helio Chissini de Castro <helio@kde.org> - 0.9.0-2
+- Proper add locale for Qt tm files
+
 * Sun Feb 08 2015 Helio Chissini de Castro <helio@kde.org> - 0.9.0-1
 - New upstream release 0.9.0
 
