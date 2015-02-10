@@ -1,7 +1,7 @@
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
 Version: 0.9.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPLv2+
 URL:     http://lxqt.org/
 Source0: http://downloads.lxqt.org/lxqt/0.9.0/lxqt-session-0.9.0.tar.xz
@@ -24,6 +24,11 @@ BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(x11)
 BuildRequires: kf5-kwindowsystem-devel >= 5.5
 BuildRequires: desktop-file-utils
+
+%if 0%{?fedora} >= 22
+Obsoletes: razorqt-session <= 0.5.2
+Obsoletes: razorqt-desktop <= 0.5.2
+%endif
 
 %description
 %{summary}.
@@ -57,6 +62,9 @@ done
 %{_datadir}/applications/*.desktop
 
 %changelog
+* Tue Feb 10 2015 Helio Chissini de Castro <helio@kde.org> - 0.9.0-3
+- Obsoletes razorqt-session and razorqt-desktop as migrated to lxqt
+
 * Mon Feb 09 2015 Helio Chissini de Castro <helio@kde.org> - 0.9.0-2
 - Proper add locale for Qt tm files
 
