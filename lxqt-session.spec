@@ -1,7 +1,7 @@
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
 Version: 0.9.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LGPLv2+
 URL:     http://lxqt.org/
 Source0: http://downloads.lxqt.org/lxqt/0.9.0/lxqt-session-0.9.0.tar.xz
@@ -62,6 +62,9 @@ done
 %{_datadir}/applications/*.desktop
 
 %changelog
+* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 0.9.0-5
+- Rebuilt for GCC 5 C++11 ABI change
+
 * Wed Feb 18 2015 Helio Chissini de Castro <helio@kde.org> - 0.9.0-4
 - Rebuild (gcc5)
 
