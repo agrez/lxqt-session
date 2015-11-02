@@ -1,19 +1,16 @@
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
-Version: 0.9.0
-Release: 6%{?dist}
+Version: 0.10.0
+Release: 1%{?dist}
 License: LGPLv2+
 URL:     http://lxqt.org/
-Source0: http://downloads.lxqt.org/lxqt/0.9.0/lxqt-session-0.9.0.tar.xz
+Source0: http://downloads.lxqt.org/lxqt/%{version}/lxqt-session-%{version}.tar.xz
 
 Requires: lxqt-common >= %{version}
 # Temporary. OpenBox should come through groups
 Requires: openbox
 
-## omit for now, until a razorqt -> lxqt transition plan is in place -- Rex
-# Obsoletes: razorqt-session <= 0.5.2
-
-BuildRequires: cmake >= 2.8.9
+BuildRequires: cmake >= 3.2.0
 BuildRequires: pkgconfig(Qt5Widgets)
 BuildRequires: pkgconfig(Qt5DBus)
 BuildRequires: pkgconfig(Qt5X11Extras)
@@ -52,16 +49,22 @@ for name in config-session hibernate lockscreen logout reboot shutdown suspend; 
 done
 
 %find_lang %{name} --with-qt
+%find_lang lxqt-leave --with-qt
 %find_lang lxqt-config-session --with-qt
 
-%files -f %{name}.lang -f lxqt-config-session.lang
-%doc COPYING
+%files -f %{name}.lang -f lxqt-config-session.lang -f lxqt-leave.lang
 %{_bindir}/lxqt-session
 %{_bindir}/lxqt-config-session
 %{_bindir}/lxqt-leave
 %{_datadir}/applications/*.desktop
+%{_mandir}/man1/lxqt-config-session*
+%{_mandir}/man1/lxqt-leave*
+%{_mandir}/man1/lxqt-session*
 
 %changelog
+* Mon Nov 02 2015 Helio Chissini de Castro <helio@kde.org> - 0.10.0-1
+- New upstream version
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.9.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
