@@ -1,7 +1,7 @@
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
 Version: 0.10.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPLv2+
 URL:     http://lxqt.org/
 Source0: http://downloads.lxqt.org/lxqt/%{version}/lxqt-session-%{version}.tar.xz
@@ -9,8 +9,6 @@ Source0: http://downloads.lxqt.org/lxqt/%{version}/lxqt-session-%{version}.tar.x
 Requires: lxqt-common >= %{version}
 # Temporary. OpenBox should come through groups
 Requires: openbox
-
-BuildRequires: cmake >= 3.2.0
 BuildRequires: pkgconfig(Qt5Widgets)
 BuildRequires: pkgconfig(Qt5DBus)
 BuildRequires: pkgconfig(Qt5X11Extras)
@@ -36,7 +34,7 @@ Obsoletes: razorqt-desktop <= 0.5.2
 %build
 mkdir -p %{_target_platform}
 pushd %{_target_platform}
-	%{cmake} -DBUNDLE_XDG_UTILS=NO ..
+	%{cmake_lxqt} -DBUNDLE_XDG_UTILS=NO ..
 popd
 
 make %{?_smp_mflags} -C %{_target_platform}
@@ -62,6 +60,9 @@ done
 %{_mandir}/man1/lxqt-session*
 
 %changelog
+* Sat Dec 12 2015 Helio Chissini de Castro <helio@kde.org> - 0.10.0-2
+- Prepare to epel7 with new cmake3
+
 * Mon Nov 02 2015 Helio Chissini de Castro <helio@kde.org> - 0.10.0-1
 - New upstream version
 
