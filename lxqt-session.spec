@@ -1,7 +1,7 @@
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
 Version: 0.10.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPLv2+
 URL:     http://lxqt.org/
 Source0: http://downloads.lxqt.org/lxqt/%{version}/lxqt-session-%{version}.tar.xz
@@ -19,11 +19,6 @@ BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(x11)
 BuildRequires: kf5-kwindowsystem-devel >= 5.5
 BuildRequires: desktop-file-utils
-
-%if 0%{?fedora} >= 22
-Obsoletes: razorqt-session <= 0.5.2
-Obsoletes: razorqt-desktop <= 0.5.2
-%endif
 
 %description
 %{summary}.
@@ -60,6 +55,9 @@ done
 %{_mandir}/man1/lxqt-session*
 
 %changelog
+* Wed Jan 20 2016 Helio Chissini de Castro <helio@kde.org> - 0.10.0-3
+- Another razorqt obsoletes
+
 * Sat Dec 12 2015 Helio Chissini de Castro <helio@kde.org> - 0.10.0-2
 - Prepare to epel7 with new cmake3
 
