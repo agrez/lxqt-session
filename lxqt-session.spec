@@ -1,7 +1,7 @@
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
 Version: 0.10.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LGPLv2+
 URL:     http://lxqt.org/
 Source0: http://downloads.lxqt.org/lxqt/%{version}/lxqt-session-%{version}.tar.xz
@@ -36,9 +36,10 @@ make %{?_smp_mflags} -C %{_target_platform}
 
 %install
 make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
-for name in config-session hibernate lockscreen logout reboot shutdown suspend; do 
-	desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
-		--remove-only-show-in=LXQt --add-only-show-in=X-LXQt %{buildroot}%{_datadir}/applications/lxqt-${name}.desktop
+for name in config-session hibernate leave lockscreen logout reboot shutdown suspend; do
+desktop-file-edit --remove-category=System --remove-category=LXQt --add-category=X-LXQt \
+--remove-only-show-in=LXQt --add-only-show-in=X-LXQt \
+%{buildroot}%{_datadir}/applications/lxqt-${name}.desktop
 done
 
 %find_lang %{name} --with-qt
@@ -55,6 +56,9 @@ done
 %{_mandir}/man1/lxqt-session*
 
 %changelog
+* Sat Sep 10 2016 Vaughan <devel at agrez dot net> - 0.10.0-5
+- Fix incorrect menu entries in lxqt
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
