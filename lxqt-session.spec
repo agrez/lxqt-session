@@ -1,61 +1,78 @@
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
-Version: 0.10.0
+Version: 0.13.0
 Release: 5%{?dist}
 License: LGPLv2+
 URL:     http://lxqt.org/
-Source0: http://downloads.lxqt.org/lxqt/%{version}/lxqt-session-%{version}.tar.xz
-
-Requires: lxqt-common >= %{version}
-# Temporary. OpenBox should come through groups
-Requires: openbox
+Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch1:  0001-fedberry-config-defaults.patch
+BuildRequires: %{?fedora:cmake}%{!?fedora:cmake3} >= 3.0
+BuildRequires: pkgconfig(lxqt) >= 0.13.0
+BuildRequires: pkgconfig(libudev)
 BuildRequires: pkgconfig(Qt5Widgets)
 BuildRequires: pkgconfig(Qt5DBus)
 BuildRequires: pkgconfig(Qt5X11Extras)
 BuildRequires: pkgconfig(Qt5Help)
 BuildRequires: pkgconfig(Qt5Xdg)
-BuildRequires: pkgconfig(lxqt)
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(x11)
 BuildRequires: kf5-kwindowsystem-devel >= 5.5
 BuildRequires: desktop-file-utils
 
+Requires:      lxqt-themes-fedberry
+Recommends:    pcmanfm-qt
+
+
 %description
 %{summary}.
 
+
 %prep
-%setup
+%autosetup -p1
+
 
 %build
 mkdir -p %{_target_platform}
 pushd %{_target_platform}
-	%{cmake_lxqt} -DBUNDLE_XDG_UTILS=NO ..
+	%{cmake_lxqt} -DBUNDLE_XDG_UTILS=NO -DPULL_TRANSLATIONS=NO ..
 popd
 
 make %{?_smp_mflags} -C %{_target_platform}
 
+
 %install
 make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
-for name in config-session hibernate leave lockscreen logout reboot shutdown suspend; do
-desktop-file-edit --remove-category=System --remove-category=LXQt --add-category=X-LXQt \
---remove-only-show-in=LXQt --add-only-show-in=X-LXQt \
-%{buildroot}%{_datadir}/applications/lxqt-${name}.desktop
+for name in config-session hibernate lockscreen logout reboot shutdown suspend; do
+    desktop-file-edit --remove-category=System --remove-category=LXQt --add-category=X-LXQt \
+    --remove-only-show-in=LXQt --add-only-show-in=X-LXQt \
+    %{buildroot}%{_datadir}/applications/lxqt-${name}.desktop
 done
 
-%find_lang %{name} --with-qt
-%find_lang lxqt-leave --with-qt
-%find_lang lxqt-config-session --with-qt
 
-%files -f %{name}.lang -f lxqt-config-session.lang -f lxqt-leave.lang
+%files
 %{_bindir}/lxqt-session
 %{_bindir}/lxqt-config-session
 %{_bindir}/lxqt-leave
+%{_bindir}/startlxqt
 %{_datadir}/applications/*.desktop
+%{_datadir}/kdm/sessions/lxqt.desktop
+%{_datadir}/lxqt/lxqt.conf
+%{_datadir}/lxqt/session.conf
+%{_datadir}/lxqt/windowmanagers.conf
+%{_datadir}/xsessions/lxqt.desktop
 %{_mandir}/man1/lxqt-config-session*
 %{_mandir}/man1/lxqt-leave*
 %{_mandir}/man1/lxqt-session*
+%{_mandir}/man1/startlxqt.1.gz
+%{_sysconfdir}/xdg/autostart/lxqt-xscreensaver-autostart.desktop
+%{_sysconfdir}/xdg/openbox/lxqt-rc.xml
+
 
 %changelog
+* Thu Nov 15 2018 Vaughan <devel at agrez dot net> - 0.13.0-5
+- New Release
+- Import config changes from depreciated lxqt-common pkg (patch1)
+
 * Sat Sep 10 2016 Vaughan <devel at agrez dot net> - 0.10.0-5
 - Fix incorrect menu entries in lxqt
 

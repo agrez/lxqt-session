@@ -1,0 +1,65 @@
+From 1805a9da00653383a1447c41ff77b67c16c38870 Mon Sep 17 00:00:00 2001
+Message-Id: <1805a9da00653383a1447c41ff77b67c16c38870.1542284007.git.devel@agrez.net>
+From: Vaughan Agrez <devel@agrez.net>
+Date: Thu, 15 Nov 2018 20:13:21 +0800
+Subject: [PATCH] Fedberry config defaults
+
+---
+ config/lxqt.conf           | 6 +++---
+ config/openbox/lxqt-rc.xml | 2 +-
+ config/session.conf        | 4 +++-
+ 3 files changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/config/lxqt.conf b/config/lxqt.conf
+index 1d48e56..750ff7e 100644
+--- a/config/lxqt.conf
++++ b/config/lxqt.conf
+@@ -1,11 +1,11 @@
+ [General]
+-theme=frost
+-icon_theme=oxygen
++theme=fedberry
++icon_theme=breeze
+ single_click_activate=false
+ tool_button_style=ToolButtonTextBesideIcon
+ 
+ [Qt]
+ font="Sans,11,-1,5,50,0,0,0,0,0"
+ doubleClickInterval=400
+-style=Fusion
++style=gtk2
+ wheelScrollLines=3
+diff --git a/config/openbox/lxqt-rc.xml b/config/openbox/lxqt-rc.xml
+index 5c19f5e..aadd962 100644
+--- a/config/openbox/lxqt-rc.xml
++++ b/config/openbox/lxqt-rc.xml
+@@ -49,7 +49,7 @@
+ </placement>
+ 
+ <theme>
+-  <name>Onyx</name>
++  <name>Breeze</name>
+   <titleLayout>NLIMC</titleLayout>
+   <!--
+       available characters are NDSLIMC, each can occur at most once.
+diff --git a/config/session.conf b/config/session.conf
+index ded6aa8..bca6acb 100644
+--- a/config/session.conf
++++ b/config/session.conf
+@@ -5,10 +5,12 @@ leave_confirmation=true
+ [Environment]
+ GTK_CSD=0
+ GTK_OVERLAY_SCROLLING=0
++BROWSER=chromium-browser
++TERM=qterminal
+ 
+ [Mouse]
+ cursor_size=18
+-cursor_theme=whiteglass
++cursor_theme=breeze_cursors
+ acc_factor=20
+ acc_threshold=10
+ left_handed=false
+-- 
+2.17.2
+
