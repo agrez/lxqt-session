@@ -42,10 +42,8 @@ make %{?_smp_mflags} -C %{_target_platform}
 
 %install
 make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
-for name in config-session hibernate lockscreen logout reboot shutdown suspend; do
-    desktop-file-edit --remove-category=System --remove-category=LXQt --add-category=X-LXQt \
-    --remove-only-show-in=LXQt --add-only-show-in=X-LXQt \
-    %{buildroot}%{_datadir}/applications/lxqt-${name}.desktop
+for name in hibernate suspend leave; do
+    desktop-file-edit --set-key=NoDisplay --set-value=true %{buildroot}%{_datadir}/applications/lxqt-${name}.desktop
 done
 
 
