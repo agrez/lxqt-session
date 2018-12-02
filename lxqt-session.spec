@@ -1,7 +1,7 @@
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
 Version: 0.13.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LGPLv2+
 URL:     http://lxqt.org/
 Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -67,6 +67,10 @@ done
 
 
 %changelog
+* Fri Nov 30 2018 Vaughan <devel at agrez dot net> - 0.13.0-6
+- Update fedberry default (Patch1)
+- Update desktop entry modifications
+
 * Thu Nov 15 2018 Vaughan <devel at agrez dot net> - 0.13.0-5
 - New Release
 - Import config changes from depreciated lxqt-common pkg (patch1)

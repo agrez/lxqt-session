@@ -14,7 +14,7 @@ diff --git a/config/lxqt.conf b/config/lxqt.conf
 index 1d48e56..750ff7e 100644
 --- a/config/lxqt.conf
 +++ b/config/lxqt.conf
-@@ -1,11 +1,11 @@
+@@ -1,11 +1,12 @@
  [General]
 -theme=frost
 -icon_theme=oxygen
@@ -22,9 +22,11 @@ index 1d48e56..750ff7e 100644
 +icon_theme=breeze
  single_click_activate=false
  tool_button_style=ToolButtonTextBesideIcon
- 
+
  [Qt]
- font="Sans,11,-1,5,50,0,0,0,0,0"
+-font="Sans,11,-1,5,50,0,0,0,0,0"
++fixedFont="Monospace,10,-1,5,50,0,0,0,0,0"
++font="Sans,10,-1,5,50,0,0,0,0,0"
  doubleClickInterval=400
 -style=Fusion
 +style=gtk2
